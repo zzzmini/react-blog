@@ -6,7 +6,13 @@ import Modal from "./Modal";
 
 function App() {
   // State 정의 시작
+
   let post = "첫 블로그 글";
+
+  // 현재 선택한 글의 인덱스를 저장
+  let [currentIndex, setCurrentIndex] = 
+    useState(0);
+
   // 타이틀 스테이트 생성
   let [title, setTitle] = useState([
     "인천 우동 맛집",
@@ -103,6 +109,8 @@ function App() {
           <div className="list">
             <h4
               onClick={() => {
+                // 현재 선택한 인덱스를 스테이트에 저장
+                setCurrentIndex(index)
                 if (showModal == false) {
                   setShowModal(true);
                 } else {
@@ -150,7 +158,11 @@ function App() {
         // 자식 콤포넌트에 전달할 props를
         // 기술
         showModal == true ? 
-          <Modal title={title[0]} /> 
+          <Modal title={title} 
+              createDate={createDate} 
+              content={content}
+              index={currentIndex} 
+              color="yellow"/> 
           : null
       }
       {/* 상세 페이지 종료 */}

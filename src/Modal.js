@@ -1,9 +1,11 @@
 function Modal(props) {
+  let index = props.index;
   return (
-    <div className="modal">
-      <h4>{props.title}</h4>
-      <p>날짜</p>
-      <p>상세내용</p>
+    <div className="modal" 
+        style={{background:props.color}}>
+      <h4>{props.title[index]}</h4>
+      <p>{props.createDate[index]}</p>
+      <p>{props.content[index]}</p>
     </div>
   );
 }
