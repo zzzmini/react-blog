@@ -11,7 +11,7 @@ function App() {
 
   // 현재 선택한 글의 인덱스를 저장
   let [currentIndex, setCurrentIndex] = 
-    useState(0);
+    useState(-1);
 
   // 타이틀 스테이트 생성
   let [title, setTitle] = useState([
@@ -111,15 +111,19 @@ function App() {
               onClick={() => {
                 // 현재 선택한 인덱스를 스테이트에 저장
                 setCurrentIndex(index)
-                if (showModal == false) {
+                if (currentIndex != index) {
                   setShowModal(true);
-                } else {
-                  setShowModal(false);
-                }
+                } else if(currentIndex == index 
+                  && showModal == false) {
+                  setShowModal(true);
+                } else setShowModal(false);
               }}
             >
               {title[index]}
-              <span onClick={() => addLike(index)}>👍</span>
+              <span onClick={(e) => {
+                e.stopPropagation();
+                addLike(index)}}
+                >👍</span>
               {like[index]}
             </h4>
             <p>작성일 : {createDate[index]}</p>
