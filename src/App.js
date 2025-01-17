@@ -2,6 +2,7 @@
 import logo from "./logo.svg";
 import { useState } from "react";
 import "./App.css";
+import Modal from "./Modal";
 
 function App() {
   // State 정의 시작
@@ -18,6 +19,13 @@ function App() {
     "2025년 1월 16일",
     "2025년 1월 15일",
   ]);
+  // 상세내용
+  let [content, setContent] = useState([
+    '인천 우동 겁나 맛있음.',
+    '남자 바바리 코트 명품',
+    '자바 독학 가능 함.'
+  ])
+
   let [showModal, setShowModal] = useState(false);
   // State 정의 종료
 
@@ -80,7 +88,7 @@ function App() {
         <button onClick={descendingTitle}>내림차순</button>
       </div>
 
-      {
+      {/* {
         title.map(function(x, i){
           return (
             <div>
@@ -89,21 +97,27 @@ function App() {
             </div>
           )
         })
-      }
-      <div className="list">
-        <h4 onClick={()=>{
-          if(showModal == false){
-            setShowModal(true);
-          } else {
-            setShowModal(false);
-          }
-        }}>
-          {title[0]}
-          <span onClick={() => addLike(0)}>👍</span>
-          {like[0]}
-        </h4>
-        <p>작성일 : {createDate[0]}</p>
-      </div>
+      } */}
+      {title.map((x, index) => {
+        return (
+          <div className="list">
+            <h4
+              onClick={() => {
+                if (showModal == false) {
+                  setShowModal(true);
+                } else {
+                  setShowModal(false);
+                }
+              }}
+            >
+              {title[index]}
+              <span onClick={() => addLike(index)}>👍</span>
+              {like[index]}
+            </h4>
+            <p>작성일 : {createDate[index]}</p>
+          </div>
+        );
+      })}
 
       {/* 남자코드 추천 */}
       {/* 버튼을 클릭하면 ->  여자코트 추천으로 변경 ->  */}
@@ -133,21 +147,16 @@ function App() {
       {
         // 리턴 안에는 if 를 못써요....
         // 삼항연산자는 쓸 수 있음.
-        showModal == true ? <Modal />:null
+        // 자식 콤포넌트에 전달할 props를
+        // 기술
+        showModal == true ? 
+          <Modal title={title[0]} /> 
+          : null
       }
       {/* 상세 페이지 종료 */}
     </div>
   );
 }
 
-function Modal(){
-  return (
-    <div className="modal">
-      <h4>제목</h4>
-      <p>날짜</p>
-      <p>상세내용</p>
-    </div>
-  );
-}
 
 export default App;
